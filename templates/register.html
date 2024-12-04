@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro de Usuários{% endblock %}
+
+{% block container_width %}600px{% endblock %}
+
+{% block heading %}Cadastro de Usuários{% endblock %}
+
+{% block content %}
+<p class="text-center">Ao criar uma conta, você terá acesso exclusivo a recursos personalizados, suporte dedicado e uma comunidade vibrante pronta para ajudá-lo a alcançar suas metas. Não perca tempo, comece sua jornada conosco agora mesmo!</p>
+<form method="POST" class="needs-validation" novalidate>
+    {{ form.hidden_tag() }}
+    
+    <div class="form-floating mb-3">
+        {{ form.name(class_="form-control", id="name", placeholder="Nome") }}
+        <label for="name">Nome</label>
+        {% for error in form.name.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-floating mb-3">
+        {{ form.email(class_="form-control", id="email", placeholder="E-mail") }}
+        <label for="email">E-mail</label>
+        {% for error in form.email.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-floating mb-3">
+        {{ form.password(class_="form-control", id="password", placeholder="Senha") }}
+        <label for="password">Senha</label>
+        {% for error in form.password.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-floating mb-3">
+        {{ form.whatsapp(class_="form-control", id="whatsapp", placeholder="WhatsApp") }}
+        <label for="whatsapp">WhatsApp</label>
+        {% for error in form.whatsapp.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-floating mb-3">
+        {{ form.account_name(class_="form-control", id="account_name", placeholder="Nome da Empresa") }}
+        <label for="account_name">Nome da Empresa</label>
+        {% for error in form.account_name.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-floating mb-3">
+        {{ form.niche(class_="form-control", id="niche", placeholder="Nicho / Ramo de Atuação") }}
+        <label for="niche">Nicho / Ramo de Atuação</label>
+        {% for error in form.niche.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-floating mb-3">
+        {{ form.cpf_cnpj(class_="form-control", id="cpf_cnpj", placeholder="CPF/CNPJ") }}
+        <label for="cpf_cnpj">CPF/CNPJ</label>
+        {% for error in form.cpf_cnpj.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="form-floating mb-3">
+        {{ form.goals(class_="form-control", id="goals", placeholder="Quais as principais dificuldades hoje e objetivos que deseja alcançar", style="height: 100px; vertical-align: top;", rows="10") }}
+        <label for="goals">Principais Objetivos que Gostaria de Alcançar</label>
+        {% for error in form.goals.errors %}
+            <div class="invalid-feedback d-block">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    {{ form.submit(class_="btn btn-primary w-100 mt-3", value="Criar Minha Conta Agora") }}
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show mt-3" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}
+
+{% block links %}
+<p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login</a></p>
+{% endblock %}

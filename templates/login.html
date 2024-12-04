@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block heading %}Login{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-4">{{ heading }}</h1>
+    <form method="POST" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+        
+        <div class="form-floating mb-3">
+            {{ form.username(class_="form-control", id="username", placeholder="Username") }}
+            {{ form.username.label(for="username") }}
+            {% for error in form.username.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-floating mb-3">
+            {{ form.password(class_="form-control", id="password", placeholder="Password") }}
+            {{ form.password.label(for="password") }}
+            {% for error in form.password.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        {{ form.submit(class_="btn btn-primary w-100") }}
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show mt-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block links %}
+    <p><a href="{{ url_for('forgot_password') }}">Esqueci minha senha</a></p>
+    <p>Não tem uma conta? <a href="{{ url_for('register') }}">Registre-se</a></p>
+{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        const invalidFields = form.querySelectorAll(':invalid');
+        if (invalidFields.length > 0) {
+            event.preventDefault();
+            invalidFields.forEach(field => {
+                const label = form.querySelector(`label[for="${field.id}"]`).innerText;
+                field.focus();
+                return false;
+            });
+        }
+    });
+});
+</script>
