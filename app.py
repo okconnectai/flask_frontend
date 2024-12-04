@@ -10,6 +10,7 @@ import json
 import time
 import hashlib
 from form_server_validation import validate_email, validate_password, format_and_validate_non_null, validate_whatsapp, validate_cpf_cnpj
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -196,5 +197,5 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=os.getenv("FLASK_ENV") == "development")
